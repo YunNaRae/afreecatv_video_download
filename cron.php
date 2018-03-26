@@ -41,7 +41,6 @@
 
         $processed  = 2;
 
-
         $size = filesize("/mnt/wwwroot/afreecatv/$filename.mp4");
 
         $postman->execute('
@@ -52,5 +51,5 @@
                     `filesize`=?
                 WHERE
                     `idx`=?
-            ', array('ii', &$processed, &$size, &$idx));
+            ', array('iii', &$processed, &$size, &$idx));
     }

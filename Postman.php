@@ -27,7 +27,7 @@ class Postman {
 
 			$this->mysqlConnection = mysqli_init();
 
-			require_once('config.php');
+			require_once('/var/www/philgookang/afreecatv/config.php');
 
 			if(mysqli_real_connect($this->mysqlConnection, $host, $username, $password, $database, $port)) {
 				mysqli_set_charset( $this->mysqlConnection, 'utf8mb4' );
@@ -46,6 +46,7 @@ class Postman {
 	function __destruct() {
 		if ( $this->mysqlConnection != null ) {
 			@mysqli_close($this->mysqlConnection);
+			$this->mysqlConnection = null;
 			Postman::$singleton = null;
 		}
 	}
@@ -53,6 +54,7 @@ class Postman {
 	function close() {
 		if ( $this->mysqlConnection != null ) {
 			@mysqli_close($this->mysqlConnection);
+			$this->mysqlConnection = null;
 			Postman::$singleton = null;
 		}
 	}

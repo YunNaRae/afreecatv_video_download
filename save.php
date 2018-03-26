@@ -16,6 +16,7 @@
     $image_url = $array['track']['titleImage'];
     $video_list = $array['track']['video'][1]['file'];
 
+
     if (!check($video_id)) {
         foreach($video_list as $video) {
             create($video_id, $image_url, $title, $video);
@@ -51,17 +52,18 @@
 
         $preview    = file_get_contents($screen_url);
         $processed  = 0;
+        $filesize   = 0;
         $status     = 1;
         $filename   = str_replace('.', '', uniqid('', true));
         $postman = Postman::init();
         $postman->execute("
                 INSERT INTO
                     `playlist`
-                    (`video_id`, `title`, `preview`, `url`, `processed`, `filename`, `created_date_time`, `status`)
+                    (`video_id`, `title`, `preview`, `url`, `processed`, `filename`, `filesize`, `created_date_time`, `status`)
                 VALUES
                     ( ?, ?, ?, ?, ?, ?, NOW(), ?)
             ",
-            array('isssisi', &$video_id, &$title, &$preview, &$url, &$processed, &$filename, &$status)
+            array('isssisi', &$video_id, &$title, &$preview, &$url, &$processed, &$filename, &$filesize, &$status)
         );
     }
 

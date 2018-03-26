@@ -27,7 +27,7 @@ class Postman {
 
 			$this->mysqlConnection = mysqli_init();
 
-			require_once('/var/www/philgookang/afreecatv/config.php');
+			require('/var/www/philgookang/afreecatv/config.php');
 
 			if(mysqli_real_connect($this->mysqlConnection, $host, $username, $password, $database, $port)) {
 				mysqli_set_charset( $this->mysqlConnection, 'utf8mb4' );

@@ -1,6 +1,6 @@
 <?php
 
-    require_once('Postman.php');
+    require_once('/var/www/philgookang/afreecatv/Postman.php');
 
     $postman = Postman::init();
 

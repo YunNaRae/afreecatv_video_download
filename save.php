@@ -61,9 +61,9 @@
                     `playlist`
                     (`video_id`, `title`, `preview`, `url`, `processed`, `filename`, `filesize`, `created_date_time`, `status`)
                 VALUES
-                    ( ?, ?, ?, ?, ?, ?, NOW(), ?)
+                    ( ?, ?, ?, ?, ?, ?, ?, NOW(), ?)
             ",
-            array('isssisi', &$video_id, &$title, &$preview, &$url, &$processed, &$filename, &$filesize, &$status)
+            array('isssisii', &$video_id, &$title, &$preview, &$url, &$processed, &$filename, &$filesize, &$status)
         );
     }
 

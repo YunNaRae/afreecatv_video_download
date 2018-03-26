@@ -53,6 +53,7 @@ class Postman {
 	function close() {
 		if ( $this->mysqlConnection != null ) {
 			@mysqli_close($this->mysqlConnection);
+			Postman::$singleton = null;
 		}
 	}
 

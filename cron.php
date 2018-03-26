@@ -37,7 +37,11 @@
                     `idx`=?
             ', array('ii', &$processed, &$idx));
 
+        $postman->close();
+
         exec("/usr/bin/ffmpeg -y -i $url -c copy -bsf:a aac_adtstoasc /mnt/wwwroot/afreecatv/$filename.mp4 ");
+
+        $postman = Postman::init();
 
         $processed  = 2;
 

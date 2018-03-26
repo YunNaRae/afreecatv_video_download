@@ -54,5 +54,5 @@
                     `processed`=?
                 WHERE
                     `idx`=?
-            ', array('iii', &$processed, &$idx));
+            ', array('ii', &$processed, &$idx));
     }

@@ -37,7 +37,7 @@
                     `idx`=?
             ', array('ii', &$processed, &$idx));
 
-        exec("/usr/bin/ffmpeg -i $url -c copy -bsf:a aac_adtstoasc /var/www/$filename.mp4 ");
+        exec("/usr/bin/ffmpeg -i $url -c copy -bsf:a aac_adtstoasc /mnt/wwwroot/afreecatv/$filename.mp4 ");
 
         $processed  = 2;
 

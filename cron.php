@@ -45,15 +45,14 @@
 
         $processed  = 2;
 
-        $size = filesize("/mnt/wwwroot/afreecatv/$filename.mp4");
+        // $size = filesize("/mnt/wwwroot/afreecatv/$filename.mp4");
 
         $postman->execute('
                 UPDATE
                     `playlist`
                 SET
-                    `processed`=?,
-                    `filesize`=?
+                    `processed`=?
                 WHERE
                     `idx`=?
-            ', array('iii', &$processed, &$size, &$idx));
+            ', array('iii', &$processed, &$idx));
     }

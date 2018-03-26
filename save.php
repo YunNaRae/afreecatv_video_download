@@ -16,8 +16,10 @@
     $image_url = $array['track']['titleImage'];
     $video_list = $array['track']['video'][1]['file'];
 
-    foreach($video_list as $video) {
-        create($video_id, $image_url, $title, $video);
+    if (!check($video_id)) {
+        foreach($video_list as $video) {
+            create($video_id, $image_url, $title, $video);
+        }
     }
 
     function check($video_id) {
@@ -46,10 +48,6 @@
     }
 
     function create($video_id, $screen_url, $title, $url) {
-
-        if (check($video_id)) {
-            return;
-        }
 
         $preview    = file_get_contents($screen_url);
         $processed  = 0;

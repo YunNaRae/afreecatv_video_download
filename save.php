@@ -16,10 +16,13 @@
     $image_url = $array['track']['titleImage'];
     $video_list = $array['track']['video'][1]['file'];
 
-
     if (!check($video_id)) {
-        foreach($video_list as $video) {
-            create($video_id, $image_url, $title, $video);
+        if (is_array($video_list)) {
+            foreach($video_list as $video) {
+                create($video_id, $image_url, $title, $video);
+            }
+        } else if (is_string($video_list)) {
+            create($video_id, $image_url, $title, $video_list);
         }
     }
 

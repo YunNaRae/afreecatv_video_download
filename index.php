@@ -28,8 +28,9 @@
         }
         array_push($tmp, $item);
     }
-    array_push($complete_list, $tmp);
-
+    if (count($tmp) > 0) {
+        array_push($complete_list, $tmp);
+    }
 
     function formatBytes($bytes, $precision = 2) {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');

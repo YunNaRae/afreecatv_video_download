@@ -68,7 +68,7 @@
     <body class="bg-light">
         <div class="container">
             <div class="py-5 text-center">
-                <h2>AfreecaTV Download</h2>
+                <h2>아프리카TV 다시 보기 영상 다운로드</h2>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <hr class="mb-4"></hr>
-                    <h4 class="mb-3">Video List</h4>
+                    <h4 class="mb-3">영상목록</h4>
                     <div class="card">
                         <div class="table-responsive">
                             <table class="table table-sm">
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <footer class="my-5 pt-5 text-muted text-center text-small">
-                <p class="mb-1">© 2017-2018 Company Name</p>
+                <p class="mb-1">&copy; 2017-2018 강필구</p>
                 <ul class="list-inline">
                     <li class="list-inline-item"><a href="#">Privacy</a></li>
                     <li class="list-inline-item"><a href="#">Terms</a></li>

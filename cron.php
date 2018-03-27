@@ -1,5 +1,9 @@
 <?php
 
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
     require_once('/var/www/philgookang/afreecatv/Postman.php');
 
     $postman = Postman::init();
@@ -45,8 +49,6 @@
 
         $processed  = 2;
 
-        // $size = filesize("/mnt/wwwroot/afreecatv/$filename.mp4");
-
         $postman->execute('
                 UPDATE
                     `playlist`
@@ -55,4 +57,17 @@
                 WHERE
                     `idx`=?
             ', array('ii', &$processed, &$idx));
+
+        sleep(1);
+
+        $size = filesize("/mnt/wwwroot/afreecatv/$filename.mp4");
+
+        $postman->execute('
+                UPDATE
+                    `playlist`
+                SET
+                    `filesize`=?
+                WHERE
+                    `idx`=?
+            ', array('ii', &$size, &$idx));
     }

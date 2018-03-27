@@ -68,7 +68,6 @@
                     `idx`=?
             ', array('ii', &$processed, &$idx));
 
-        /*
         // 바로 사이즈 찾으려면 이상하게 오류 나네요???
         // 안전하게 1초 쉬자 그럼~
         // 컴퓨터에게는 만녀!
@@ -87,6 +86,5 @@
                     `filesize`=?
                 WHERE
                     `idx`=?
-            ', array('ii', &$size, &$idx));
-        */
+            ', array('si', &$size, &$idx));
     }

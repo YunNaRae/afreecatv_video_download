@@ -1,16 +1,14 @@
 <?php
 
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-
     require_once('/var/www/philgookang/afreecatv/Postman.php');
 
+    // 데이터 베이스 연결!
     $postman = Postman::init();
 
     $processed  = 0;
     $status     = 1;
 
+    // 다운로드 받을 파일 목록
     $list = $postman->returnDataList('
             SELECT
                 `idx`,`url`,`filename`
@@ -32,6 +30,7 @@
         $url        = $item->url;
         $filename   = $item->filename;
 
+        // 상태 바꾸기
         $postman->execute('
                 UPDATE
                     `playlist`
@@ -41,14 +40,25 @@
                     `idx`=?
             ', array('ii', &$processed, &$idx));
 
+        // 다운로드 시간이 길어서
+        // 우선 연결 끊고
+        // 다시 연결 하자!
         $postman->close();
 
+        // ---------------------
+
+        // ffmpeg 에서 아프리카 영상 다운로드하기
         exec("/usr/bin/ffmpeg -y -i $url -c copy -bsf:a aac_adtstoasc /mnt/wwwroot/afreecatv/$filename.mp4 ");
 
+        // ---------------------
+
+        // 데이터베이스 다시 연결
         $postman = Postman::init();
 
+        // 다운로드 완전 값
         $processed  = 2;
 
+        // 다운로드 완료 처리
         $postman->execute('
                 UPDATE
                     `playlist`
@@ -58,10 +68,17 @@
                     `idx`=?
             ', array('ii', &$processed, &$idx));
 
+        // 바로 사이즈 찾으려면 이상하게 오류 나네요???
+        // 안전하게 1초 쉬자 그럼~
+        // 컴퓨터에게는 만녀!
         sleep(1);
 
+        // 이제 파일 사이즈 찾자
         $size = filesize("/mnt/wwwroot/afreecatv/$filename.mp4");
 
+        // 이제 사이즈 업데이터 하자
+        // 왜 두개 퀴리로 처리하냐?
+        // 그냥~ 내 마음~
         $postman->execute('
                 UPDATE
                     `playlist`

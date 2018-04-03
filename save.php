@@ -16,6 +16,10 @@
     $image_url = $array['track']['titleImage'];
     $video_list = $array['track']['video'][1]['file'];
 
+    if ($video_list == NULL) {
+        $video_list = $array['track']['video']['file'];
+    }
+
     if (!check($video_id)) {
         if (is_array($video_list)) {
             foreach($video_list as $video) {

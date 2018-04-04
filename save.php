@@ -14,10 +14,29 @@
     $video_id = $link[(count($link) - 1)];
     $title = $array['track']['title'];
     $image_url = $array['track']['titleImage'];
-    $video_list = $array['track']['video'][1]['file'];
+    $video_list = NULL;
 
-    if ($video_list == NULL) {
+    if (isset($array['track']['video'][1]['file'])) {
+        $video_list = $array['track']['video'][1]['file'];
+    }
+
+    if (($video_list == NULL) && isset($array['track']['video']['file'])) {
         $video_list = $array['track']['video']['file'];
+    }
+
+    if (($video_list == NULL) && isset($array['track']['video'])) {
+
+        foreach($array['track']['video'] as $item) {
+
+            if (strpos($item, 'rtmp') !== false) {
+
+                if ($video_list == NULL) {
+                    $video_list = array();
+                }
+
+                array_push($video_list, $item);
+            }
+        }
     }
 
     if (!check($video_id)) {
@@ -57,20 +76,26 @@
 
     function create($video_id, $screen_url, $title, $url) {
 
+        $url_type   = 0;
         $preview    = file_get_contents($screen_url);
         $processed  = 0;
         $filesize   = 0;
         $status     = 1;
         $filename   = str_replace('.', '', uniqid('', true));
+
+        if (strpos($url, 'rtmp') !== false) {
+            $url_type = 1;
+        }
+
         $postman = Postman::init();
         $postman->execute("
                 INSERT INTO
                     `playlist`
-                    (`video_id`, `title`, `preview`, `url`, `processed`, `filename`, `filesize`, `created_date_time`, `status`)
+                    (`video_id`, `title`, `preview`, `url`, `url_type`, `processed`, `filename`, `filesize`, `created_date_time`, `status`)
                 VALUES
-                    ( ?, ?, ?, ?, ?, ?, ?, NOW(), ?)
+                    ( ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)
             ",
-            array('isssisii', &$video_id, &$title, &$preview, &$url, &$processed, &$filename, &$filesize, &$status)
+            array('isssisii', &$video_id, &$title, &$preview, &$url, &$url_type, &$processed, &$filename, &$filesize, &$status)
         );
     }
 

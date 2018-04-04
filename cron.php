@@ -11,7 +11,7 @@
     // 다운로드 받을 파일 목록
     $list = $postman->returnDataList('
             SELECT
-                `idx`,`url`,`filename`
+                `idx`,`url`,`url_type`,`filename`
             FROM
                 `playlist`
             WHERE
@@ -47,8 +47,16 @@
 
         // ---------------------
 
-        // ffmpeg 에서 아프리카 영상 다운로드하기
-        exec("/usr/bin/ffmpeg -y -i $url -c copy -bsf:a aac_adtstoasc /mnt/wwwroot/afreecatv/$filename.mp4 ");
+        // check if its normal file streaming type
+        if ($item->url_type == 0) {
+
+            // ffmpeg 에서 아프리카 영상 다운로드하기
+            exec("/usr/bin/ffmpeg -y -i $url -c copy -bsf:a aac_adtstoasc /mnt/wwwroot/afreecatv/$filename.mp4 ");
+
+        // check if its rtmp
+        } else if ($item->url_type == 1) {
+
+        }
 
         // ---------------------
 

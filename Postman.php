@@ -70,6 +70,10 @@ class Postman {
 		$result = $stmt->execute();
 		$result = $stmt->get_result();
 
+		if (!$result) {
+			exit(json_encode( array( 'code' => '400', 'msg' => $this->mysqlConnection->error, 'sql' => '' ) ));
+		}
+
 		if ( $return_insert_idx ) {
 			return $stmt->insert_id;
 		} else {

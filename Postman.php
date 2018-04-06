@@ -68,11 +68,12 @@ class Postman {
 
 		$this->db_bind_param($stmt, $params);
 		$result = $stmt->execute();
-		$result = $stmt->get_result();
 
 		if (!$result) {
 			exit(json_encode( array( 'code' => '400', 'msg' => $this->mysqlConnection->error, 'sql' => '' ) ));
 		}
+		
+		$result = $stmt->get_result();
 
 		if ( $return_insert_idx ) {
 			return $stmt->insert_id;

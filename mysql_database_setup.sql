@@ -31,16 +31,17 @@ USE `afreecatv`;
 --
 
 CREATE TABLE `playlist` (
-  `idx` int(11) NOT NULL,
-  `video_id` int(11) NOT NULL,
-  `title` varchar(128) NOT NULL,
-  `preview` blob NOT NULL,
-  `url` varchar(256) NOT NULL,
-  `processed` int(11) NOT NULL,
-  `filename` varchar(22) NOT NULL,
-  `filesize` double NOT NULL,
-  `created_date_time` datetime NOT NULL,
-  `status` tinyint(1) NOT NULL
+    `idx` int(11) NOT NULL,
+    `video_id` int(11) NOT NULL,
+    `title` varchar(128) NOT NULL,
+    `preview` longblob NOT NULL,
+    `url` varchar(256) NOT NULL,
+    `url_type` tinyint(1) NOT NULL,
+    `processed` int(11) NOT NULL,
+    `filename` varchar(22) NOT NULL,
+    `filesize` double NOT NULL,
+    `created_date_time` datetime NOT NULL,
+    `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

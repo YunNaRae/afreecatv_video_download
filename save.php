@@ -39,13 +39,13 @@
         }
     }
 
-    if (!check($video_id)) {
-        if (is_array($video_list)) {
-            foreach($video_list as $video) {
-                create($video_id, $image_url, $title, $video);
-            }
-        } else if (is_string($video_list)) {
-            create($video_id, $image_url, $title, $video_list);
+    if (is_string($video_list)) {
+        $video_list = array($video_list);
+    }
+
+    if (!check($video_id) && is_array($video_list)) {
+        foreach($video_list as $video) {
+            create($video_id, $image_url, $title, $video);
         }
     }
 
@@ -95,7 +95,7 @@
                 VALUES
                     ( ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?)
             ",
-            array('isssisii', &$video_id, &$title, &$preview, &$url, &$url_type, &$processed, &$filename, &$filesize, &$status)
+            array('isssiisii', &$video_id, &$title, &$preview, &$url, &$url_type, &$processed, &$filename, &$filesize, &$status)
         );
     }
 

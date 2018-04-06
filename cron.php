@@ -56,8 +56,14 @@
         // check if its rtmp
         } else if ($item->url_type == 1) {
 
+
+            $seperate = explode('mp4:', $url);
+
+            $base_url = $seperate[0];
+            $file_url = $seperate[1];
+
             // ffmpeg 에서 영상 다운로드하기
-            exec("/usr/bin/ffmpeg -i  $url -vcodec copy -acodec copy out.mp4 /mnt/wwwroot/afreecatv/$filename.mp4 ");
+            exec("/usr/bin/rtmpdump -r \"$base_url\" -y \"mp4:$file_url\" -o /mnt/wwwroot/afreecatv/$filename.mp4 ");
         }
 
         // ---------------------
